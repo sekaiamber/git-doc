@@ -78,6 +78,18 @@ feature. add some component.
 
 很多Git学院派认为Commit的创建需要遵循一定规则，因为Commit Message将现实在Git管理系统对应的每个文件后面。而我的建议是：`凭直觉`，一般是一个功能完成即可形成一个Commit，多个Commit可以直接推送至线上分支，也可以一个一个推送。
 
+# Issue
+
+Issue是Git管理系统的社区职能的主要承担者，它十分单纯，类似一个有些延伸功能的BBS。开发人员可以随意提出Issue，但是需遵守以下原则：
+
+1. 提交Issue之前看看有没有其他人提交了相同的Issue，如果有，那么直接在原Issue下`+1`即可。
+2. 不要在人家的Issue的评论中提出新的Issue。
+3. 不要在同一个Issue中报告多个问题。
+
+## 使用模版
+
+许多Git管理系统支持Issue和PR模版，实现方式各有不同，但是对于问题收集和定位十分有效。
+
 # PR
 
 PR(Pull Request)是Git流程中最重要的一环，它决定了Git是否真正作为版本控制工具来进行使用。
