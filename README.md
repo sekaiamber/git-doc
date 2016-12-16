@@ -167,3 +167,62 @@ Issue和PR都可以关联彼此和人员，原则上相关的Issue、PR和人员
 很多国内网站将里程碑等同于`tag`，这其实是错误的，里程碑（milestone）事实上是很多Git管理系统提供的功能，它并不像`tag`那样标记某个commit，而是为了标记一连串的commit，这些commit组成了项目演进过程中某个路径，里程碑可以将这些commit联立起来。
 
 里程碑可以设置描述和起始终结时间，是向领导汇报工作的利器 :)
+
+# 冲突处理
+
+Git最强大的地方莫过于冲突处理，这边建议通过`rebase`命令来解决冲突，说起来比较麻烦，直接上代码。
+
+请细细体会代码：
+```shell
+$ git pull origin develop
+remote: Counting objects: 1, done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), done.
+From https://github.com/sekaiamber/git-doc
+ * branch            develop    -> FETCH_HEAD
+   300149c..f54fad2  develop    -> origin/develop
+Updating 300149c..f54fad2
+Fast-forward
+ README.md | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+$ git checkout feature/add-conflict
+Switched to branch 'feature/add-conflict'
+
+$ git rebase develop
+First, rewinding head to replay your work on top of it...
+Applying: feature. add conflict
+Using index info to reconstruct a base tree...
+M	README.md
+Falling back to patching base and 3-way merge...
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+error: Failed to merge in the changes.
+Patch failed at 0001 feature. add conflict
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+$ git add .
+
+$ git rebase --continue
+Applying: feature. add conflict
+
+$ git push origin feature/add-conflict --force
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 451 bytes | 0 bytes/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/sekaiamber/git-doc.git
+ + 412227e...4fc6ead feature/add-conflict -> feature/add-conflict (forced update)
+```
+
+中途产生`rebase`失败的时候，可以进入提示的文件中修改之后，通过`add`命令生成commit，使用`rebase --continue`命令不断循环上述操作，最后使用`-f`强制push到远端。
+
+很多人担心`rebase`会丢失一些commit message，事实上无需担心，因为PR中完整地记录了这个分支相关的情况。
+
+原理（可以不看）：如果你细细观察`rebase`前后的分支网络，你会发现`rebase`的作用其实是类似“拉直”了目标分支的行进路线，它将目标分支在产生所有冲突之前重新修改，并重新设置分支起点到所有冲突之后，这也是为什么需要`-f push`的理由。
