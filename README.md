@@ -101,7 +101,7 @@ Issue和PR都可以关联彼此和人员，原则上相关的Issue、PR和人员
 
 ## 分支管理
 
-所有开发人员可以自由地创建分支，建议从`develop`分支新建分支，并且合并到`develop`。
+所有开发人员可以自由地创建分支，建议从`develop`分支新建分支，并且合并到`develop`。`develop`分支将作为默认分支，而不是`master`。
 
 `develop`和`master`分支将被设置为保护(protectd)：
 
