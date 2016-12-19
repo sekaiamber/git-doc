@@ -78,7 +78,7 @@ feature. add some component.
 
 ## 何时创建Commit
 
-很多Git学院派认为Commit的创建需要遵循一定规则，因为Commit Message将现实在Git管理系统对应的每个文件后面。而我的建议是：`凭直觉`，一般是一个功能完成即可形成一个Commit，多个Commit可以直接推送至线上分支，也可以一个一个推送。
+很多Git学院派认为Commit的创建需要遵循一定规则，因为Commit Message将显示在Git管理系统对应的每个文件后面。而我的建议是：`凭直觉`，一般是一个功能完成即可形成一个Commit，多个Commit可以直接推送至线上分支，也可以一个一个推送。
 
 # Issue
 
